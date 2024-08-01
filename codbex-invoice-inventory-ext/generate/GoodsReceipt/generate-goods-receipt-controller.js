@@ -3,26 +3,26 @@ app.controller('templateController', ['$scope', '$http', 'ViewParameters', 'mess
     const params = ViewParameters.get();
     $scope.showDialog = true;
 
-    const purchaseOrderDataUrl = "/services/ts/codbex-invoice-inventory-ext/generate/GoodsReceipt/api/GenerateGoodsReceiptService.ts/purchaseOrderData/" + params.id;
-    $http.get(purchaseOrderDataUrl)
+    const purchaseInvoiceDataUrl = "/services/ts/codbex-invoice-inventory-ext/generate/GoodsReceipt/api/GenerateGoodsReceiptService.ts/purchaseOrderData/" + params.id;
+    $http.get(purchaseInvoiceDataUrl)
         .then(function (response) {
-            $scope.PurchaseOrderData = response.data;
+            $scope.PurchaseInvoiceData = response.data;
         })
         .catch(function (error) {
-            console.error("Error retrieving purchase order data:", error);
+            console.error("Error retrieving purchase invoice data:", error);
         });
 
-    const purchaseOrderItemsUrl = "/services/ts/codbex-invoice-inventory-ext/generate/GoodsReceipt/api/GenerateGoodsReceiptService.ts/purchaseOrderItemsData/" + params.id;
-    $http.get(purchaseOrderItemsUrl)
+    const purchaseInvoiceItemsUrl = "/services/ts/codbex-invoice-inventory-ext/generate/GoodsReceipt/api/GenerateGoodsReceiptService.ts/purchaseOrderItemsData/" + params.id;
+    $http.get(purchaseInvoiceItemsUrl)
         .then(function (response) {
-            $scope.PurchaseOrderItemsData = response.data;
+            $scope.PurchaseInvoiceItemsData = response.data;
         })
         .catch(function (error) {
-            console.error("Error retrieving purchase order items data:", error);
+            console.error("Error retrieving purchase invoice items data:", error);
         });
 
     $scope.generateGoodsReceipt = function () {
-        const items = $scope.PurchaseOrderItemsData;
+        const items = $scope.PurchaseInvoiceItemsData;
 
         const goodsReceiptUrl = "/services/ts/codbex-inventory/gen/codbex-inventory/api/GoodsReceipts/GoodsReceiptService.ts/";
 
@@ -30,17 +30,17 @@ app.controller('templateController', ['$scope', '$http', 'ViewParameters', 'mess
             .then(function (response) {
                 $scope.GoodsReceipt = response.data
 
-                if ($scope.PurchaseOrderItemsData && $scope.PurchaseOrderItemsData.length > 0) {
-                    items.forEach(orderItem => {
+                if ($scope.PurchaseInvoiceItemsData && $scope.PurchaseInvoiceItemsData.length > 0) {
+                    items.forEach(invoiceItem => {
                         const goodsReceiptItem = {
                             "GoodsReceipt": $scope.GoodsReceipt.Id,
-                            "Product": orderItem.Product,
-                            "Quantity": orderItem.Quantity,
-                            "UoM": orderItem.UoM,
-                            "Price": orderItem.Price,
-                            "Net": orderItem.Net,
-                            "VAT": orderItem.VAT,
-                            "Gross": orderItem.Gross
+                            "Product": invoiceItem.Product,
+                            "Quantity": invoiceItem.Quantity,
+                            "UoM": invoiceItem.UoM,
+                            "Price": invoiceItem.Price,
+                            "Net": invoiceItem.Net,
+                            "VAT": invoiceItem.VAT,
+                            "Gross": invoiceItem.Gross
                         };
                         const goodsReceiptItemUrl = "/services/ts/codbex-inventory/gen/codbex-inventory/api/GoodsReceipts/GoodsReceiptItemService.ts/"
                         $http.post(goodsReceiptItemUrl, goodsReceiptItem)

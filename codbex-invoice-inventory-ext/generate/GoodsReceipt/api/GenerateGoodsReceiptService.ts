@@ -1,61 +1,61 @@
-import { PurchaseOrderRepository as PurchaseOrderDao } from "../../../../codbex-orders/gen/codbex-orders/dao/PurchaseOrder/PurchaseOrderRepository";
-import { PurchaseOrderItemRepository as PurchaseOrderItemDao } from "../../../../codbex-orders/gen/codbex-orders/dao/PurchaseOrder/PurchaseOrderItemRepository";
+import { PurchaseInvoiceRepository as PurchaseInvoiceDao } from "../../../../codbex-invoices/gen/codbex-invoices/dao/purchaseinvoice/PurchaseInvoiceRepository";
+import { PurchaseInvoiceItemRepository as PurchaseInvoiceItemDao } from "../../../../codbex-invoices/gen/codbex-invoices/dao/purchaseinvoice/PurchaseInvoiceItemRepository";
 
 import { Controller, Get } from "sdk/http";
 
 @Controller
 class GenerateGoodsReceiptService {
 
-    private readonly purchaseOrderDao;
-    private readonly purchaseOrderItemDao;
+    private readonly purchaseInvoiceDao;
+    private readonly purchaseInvoiceItemDao;
 
     constructor() {
-        this.purchaseOrderDao = new PurchaseOrderDao();
-        this.purchaseOrderItemDao = new PurchaseOrderItemDao();
+        this.purchaseInvoiceDao = new PurchaseInvoiceDao();
+        this.purchaseInvoiceItemDao = new PurchaseInvoiceItemDao();
     }
 
-    @Get("/purchaseOrderData/:purchaseOrderId")
-    public purchaseOrderData(_: any, ctx: any) {
-        const purchaseOrderId = ctx.pathParameters.purchaseOrderId;
+    @Get("/purchaseInvoiceData/:purchaseInvoiceId")
+    public purchaseInvoiceData(_: any, ctx: any) {
+        const purchaseInvoiceId = ctx.pathParameters.purchaseInvoiceId;
 
-        let purchaseOrder = this.purchaseOrderDao.findById(purchaseOrderId);
+        let purchaseInvoice = this.purchaseInvoiceDao.findById(purchaseInvoiceId);
 
         return {
-            "Date": purchaseOrder.Date,
-            "Due": purchaseOrder.Due,
-            "Supplier": purchaseOrder.Supplier,
-            "Net": purchaseOrder.Net,
-            "Currency": purchaseOrder.Currency,
-            "Gross": purchaseOrder.Gross,
-            "Discount": purchaseOrder.Discount,
-            "Taxes": purchaseOrder.Taxes,
-            "VAT": purchaseOrder.VAT,
-            "Total": purchaseOrder.Total,
-            "Conditions": purchaseOrder.Conditions,
-            "PaymentMethod": purchaseOrder.PaymentMethod,
-            "SentMethod": purchaseOrder.SentMethod,
-            "Company": purchaseOrder.Company,
+            "Date": purchaseInvoice.Date,
+            "Due": purchaseInvoice.Due,
+            "Supplier": purchaseInvoice.Supplier,
+            "Net": purchaseInvoice.Net,
+            "Currency": purchaseInvoice.Currency,
+            "Gross": purchaseInvoice.Gross,
+            "Discount": purchaseInvoice.Discount,
+            "Taxes": purchaseInvoice.Taxes,
+            "VAT": purchaseInvoice.VAT,
+            "Total": purchaseInvoice.Total,
+            "Conditions": purchaseInvoice.Conditions,
+            "PaymentMethod": purchaseInvoice.PaymentMethod,
+            "SentMethod": purchaseInvoice.SentMethod,
+            "Company": purchaseInvoice.Company,
             "PurchaseOrderStatus": 1,
-            "Operator": purchaseOrder.Operator,
-            "Reference": purchaseOrder.UUID,
-            "Store": purchaseOrder.Store
+            "Operator": purchaseInvoice.Operator,
+            "Reference": purchaseInvoice.UUID,
+            // "Store": purchaseInvoice.Store
         };
     }
 
-    @Get("/purchaseOrderItemsData/:purchaseOrderId")
-    public purchaseOrderItemsData(_: any, ctx: any) {
-        const purchaseOrderId = ctx.pathParameters.purchaseOrderId;
+    @Get("/purchaseInvoiceItemsData/:purchaseInvoiceId")
+    public purchaseInvoiceItemsData(_: any, ctx: any) {
+        const purchaseInvoiceId = ctx.pathParameters.purchaseInvoiceId;
 
-        let purchaseOrder = this.purchaseOrderDao.findById(purchaseOrderId);
+        let purchaseInvoice = this.purchaseInvoiceDao.findById(purchaseInvoiceId);
 
-        let purchaseOrderItems = this.purchaseOrderItemDao.findAll({
+        let purchaseInvoiceItems = this.purchaseInvoiceItemDao.findAll({
             $filter: {
                 equals: {
-                    PurchaseOrder: purchaseOrder.Id
+                    PurchaseInvoice: purchaseInvoice.Id
                 }
             }
         });
 
-        return purchaseOrderItems;
+        return purchaseInvoiceItems;
     }
 }
