@@ -2,10 +2,10 @@ const viewData = {
     id: 'goods-receipt-generate',
     label: 'Generate Goods Receipt',
     link: '/services/web/codbex-invoice-inventory-ext/generate/GoodsReceipt/generate-goods-receipt.html',
-    perspective: 'PurchaseOrder',
-    view: 'PurchaseOrder',
+    perspective: 'purchaseinvoice',
+    view: 'PurchaseInvoice',
     type: 'entity',
-    order: 20
+    order: 60
 };
 
 if (typeof exports !== 'undefined') {

@@ -1,5 +1,5 @@
-import { PurchaseOrderRepository as PurchaseOrderDao } from "../../../../codbex-orders/gen/dao/purchaseorder/PurchaseOrderRepository";
-import { PurchaseOrderItemRepository as PurchaseOrderItemDao } from "../../../../codbex-orders/gen/dao/purchaseorder/PurchaseOrderItemRepository";
+import { PurchaseOrderRepository as PurchaseOrderDao } from "../../../../codbex-orders/gen/codbex-orders/dao/PurchaseOrder/PurchaseOrderRepository";
+import { PurchaseOrderItemRepository as PurchaseOrderItemDao } from "../../../../codbex-orders/gen/codbex-orders/dao/PurchaseOrder/PurchaseOrderItemRepository";
 
 import { Controller, Get } from "sdk/http";
 
@@ -37,7 +37,8 @@ class GenerateGoodsReceiptService {
             "Company": purchaseOrder.Company,
             "PurchaseOrderStatus": 1,
             "Operator": purchaseOrder.Operator,
-            "Reference": purchaseOrder.UUID
+            "Reference": purchaseOrder.UUID,
+            "Store": purchaseOrder.Store
         };
     }
 
