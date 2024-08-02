@@ -5,7 +5,7 @@ const viewData = {
     perspective: 'purchaseinvoice',
     view: 'PurchaseInvoice',
     type: 'entity',
-    order: 90
+    order: 10
 };
 
 if (typeof exports !== 'undefined') {

@@ -21,12 +21,12 @@ app.controller('templateController', ['$scope', '$http', 'ViewParameters', 'mess
             console.error("Error retrieving purchase invoice items data:", error);
         });
 
-    $scope.generateGoodsReceipt = function () {
+    $scope.generateGoodsReceiptFromInvoice = function () {
         const items = $scope.PurchaseInvoiceItemsData;
 
         const goodsReceiptUrl = "/services/ts/codbex-inventory/gen/codbex-inventory/api/GoodsReceipts/GoodsReceiptService.ts/";
 
-        $http.post(goodsReceiptUrl, $scope.PurchaseOrderData)
+        $http.post(goodsReceiptUrl, $scope.PurchaseInvoiceData)
             .then(function (response) {
                 $scope.GoodsReceipt = response.data
 
