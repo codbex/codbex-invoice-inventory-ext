@@ -3,7 +3,7 @@ app.controller('templateController', ['$scope', '$http', 'ViewParameters', 'mess
     const params = ViewParameters.get();
     $scope.showDialog = true;
 
-    const purchaseInvoiceDataUrl = "/services/ts/codbex-invoice-inventory-ext/generate/GoodsReceipt/api/GenerateGoodsReceiptService.ts/purchaseOrderData/" + params.id;
+    const purchaseInvoiceDataUrl = "/services/ts/codbex-invoice-inventory-ext/generate/GoodsReceipt/api/GenerateGoodsReceiptService.ts/purchaseInvoiceData/" + params.id;
     $http.get(purchaseInvoiceDataUrl)
         .then(function (response) {
             $scope.PurchaseInvoiceData = response.data;
@@ -12,7 +12,7 @@ app.controller('templateController', ['$scope', '$http', 'ViewParameters', 'mess
             console.error("Error retrieving purchase invoice data:", error);
         });
 
-    const purchaseInvoiceItemsUrl = "/services/ts/codbex-invoice-inventory-ext/generate/GoodsReceipt/api/GenerateGoodsReceiptService.ts/purchaseOrderItemsData/" + params.id;
+    const purchaseInvoiceItemsUrl = "/services/ts/codbex-invoice-inventory-ext/generate/GoodsReceipt/api/GenerateGoodsReceiptService.ts/purchaseInvoiceItemsData/" + params.id;
     $http.get(purchaseInvoiceItemsUrl)
         .then(function (response) {
             $scope.PurchaseInvoiceItemsData = response.data;
